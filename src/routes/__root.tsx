@@ -81,9 +81,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Portfolio of Srisanjay M — Software Engineer, Full Stack, React Native, and AI developer. Explore projects, skills, and experience." },
       { name: "author", content: "Srisanjay M" },
       { property: "og:title", content: "Srisanjay M — Software Engineer & Full Stack Developer" },
-      { property: "og:description", content: "Premium portfolio showcasing full stack, mobile, and AI projects." },
+      { property: "og:description", content: "Portfolio of Srisanjay M — Software Engineer, Full Stack, React Native, and AI developer. Explore projects, skills, and experience." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Srisanjay M — Software Engineer & Full Stack Developer" },
+      { name: "twitter:description", content: "Portfolio of Srisanjay M — Software Engineer, Full Stack, React Native, and AI developer. Explore projects, skills, and experience." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6a5a5f8a-dc3c-4fde-88bb-bc9a78776411/id-preview-a63da5b7--6bcb5ed5-110d-4982-adab-7dede8000df6.lovable.app-1784218725207.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6a5a5f8a-dc3c-4fde-88bb-bc9a78776411/id-preview-a63da5b7--6bcb5ed5-110d-4982-adab-7dede8000df6.lovable.app-1784218725207.png" },
     ],
     links: [
       {
