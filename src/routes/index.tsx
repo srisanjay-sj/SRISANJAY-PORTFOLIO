@@ -114,6 +114,13 @@ function MagneticButton({ children, href, variant = "primary", download }: {
       ref={ref}
       href={href}
       download={download}
+      onClick={(e) => {
+        if (href.startsWith("#")) {
+          e.preventDefault();
+          const el = document.querySelector(href);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }}
       onPointerMove={(e) => {
         const r = ref.current!.getBoundingClientRect();
         x.set((e.clientX - r.left - r.width / 2) * 0.25);
