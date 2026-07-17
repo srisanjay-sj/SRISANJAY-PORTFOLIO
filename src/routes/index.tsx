@@ -6,6 +6,7 @@ import {
   Code2, Cpu, Database, Smartphone, Brain, Wrench, Sparkles, ArrowUp,
   Rocket, GraduationCap, Award, Briefcase, ChevronRight,
 } from "lucide-react";
+import profilePhoto from "@/assets/profile.jpg";
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -173,9 +174,8 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
 const ROLES = [
   "Software Engineer",
   "Full Stack Developer",
-  "React Native Developer",
   "AI Enthusiast",
-  "MERN Stack Developer",
+  "React Native Developer",
 ];
 
 function TypingRole() {
@@ -205,90 +205,87 @@ function TypingRole() {
   );
 }
 
-function CodeBlock3D() {
+function ProfileShowcase() {
+  const badges = [
+    { label: "React",     cls: "top-[4%] left-[-6%]",     delay: 0 },
+    { label: "Node.js",   cls: "top-[18%] right-[-10%]",  delay: 0.6 },
+    { label: "Python",    cls: "top-[52%] left-[-14%]",   delay: 1.2 },
+    { label: "MongoDB",   cls: "bottom-[18%] right-[-12%]", delay: 1.8 },
+    { label: "Gemini AI", cls: "bottom-[-4%] left-[10%]", delay: 2.4 },
+    { label: "GitHub",    cls: "top-[36%] right-[-4%]",   delay: 3.0 },
+  ];
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.4, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      className="relative"
-      style={{ perspective: 1400 }}
+      transition={{ delay: 0.3, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      className="relative mx-auto w-full max-w-[440px]"
     >
+      {/* orbit rings */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
+        <div className="absolute h-[112%] w-[112%] rounded-full border border-white/10" />
+        <div className="absolute h-[130%] w-[130%] rounded-full border border-white/[0.06]" />
+      </div>
+
+      {/* neon glow halo */}
+      <div aria-hidden className="pointer-events-none absolute -inset-8 -z-10 rounded-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.45),rgba(124,58,237,0.25)_45%,transparent_70%)] blur-2xl" />
+
+      {/* photo container */}
       <motion.div
-        animate={{ rotateY: [-8, 8, -8], rotateX: [6, -2, 6] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        style={{ transformStyle: "preserve-3d" }}
-        className="relative mx-auto aspect-[5/6] w-full max-w-md"
+        animate={{ y: [0, -14, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="relative aspect-square w-full rounded-[2rem] glass gradient-border p-3 shadow-[0_40px_120px_-30px_rgba(59,130,246,0.7)]"
       >
-        {/* main window */}
-        <div className="absolute inset-0 rounded-3xl glass gradient-border p-5 shadow-[0_40px_120px_-30px_rgba(59,130,246,0.6)]">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-red-400/80" />
-            <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
-            <span className="h-3 w-3 rounded-full bg-green-400/80" />
-            <span className="ml-3 font-mono text-[11px] text-white/50">~/srisanjay/portfolio.tsx</span>
+        <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] ring-1 ring-white/10">
+          <img
+            src={profilePhoto}
+            alt="Portrait of Srisanjay M, software engineer"
+            width={1024}
+            height={1024}
+            className="h-full w-full object-cover"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0b1020]/70 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-0 rounded-[1.6rem] ring-1 ring-inset ring-[#00f5ff]/20" />
+          {/* status chip */}
+          <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-[11px] tracking-widest text-white/80">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            OPEN TO WORK
           </div>
-          <pre className="mt-4 overflow-hidden font-mono text-[12px] leading-6 text-white/80">
-{`const dev = {
-  name: "Srisanjay M",
-  role: "Software Engineer",
-  stack: ["React", "Node", "Mongo",
-          "React Native", "Gemini AI"],
-  focus: "AI × Full Stack × Mobile",
-  cgpa: 8.56,
-  ship() {
-    return "world-class UX ✨";
-  },
-};
-
-export default dev;`}
-          </pre>
-        </div>
-
-        {/* floating side card */}
-        <motion.div
-          animate={{ y: [0, -14, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-8 bottom-8 w-44 rounded-2xl glass gradient-border p-3"
-          style={{ transform: "translateZ(60px)" }}
-        >
-          <div className="flex items-center gap-2 text-xs text-white/70">
-            <Sparkles className="h-3.5 w-3.5 text-[#00f5ff]" /> Gemini AI
-          </div>
-          <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/10">
-            <motion.div className="h-full rounded-full bg-gradient-to-r from-[#3b82f6] to-[#7c3aed]"
-              initial={{ width: 0 }} animate={{ width: "88%" }} transition={{ duration: 2, delay: 1 }} />
-          </div>
-          <div className="mt-1 font-mono text-[10px] text-white/50">ATS score · 88</div>
-        </motion.div>
-
-        {/* floating badge */}
-        <motion.div
-          animate={{ y: [0, 12, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-6 -top-6 rounded-2xl glass gradient-border px-4 py-3"
-          style={{ transform: "translateZ(80px)" }}
-        >
-          <div className="text-[10px] uppercase tracking-widest text-white/50">CGPA</div>
-          <div className="font-display text-2xl gradient-text">8.56</div>
-        </motion.div>
-
-        {/* orbiting ring */}
-        <div aria-hidden className="absolute inset-0 -z-10">
-          <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
-          <div className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
         </div>
       </motion.div>
+
+      {/* floating tech badges */}
+      {badges.map((b, i) => (
+        <motion.div
+          key={b.label}
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
+          transition={{
+            opacity: { delay: 0.6 + i * 0.1, duration: 0.5 },
+            scale:   { delay: 0.6 + i * 0.1, duration: 0.5 },
+            y:       { duration: 4 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: b.delay },
+          }}
+          className={`absolute ${b.cls} z-10`}
+        >
+          <div className="rounded-full glass gradient-border px-3 py-1.5 text-[11px] font-medium text-white/90 shadow-[0_10px_30px_-10px_rgba(59,130,246,0.6)]">
+            <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-[#00f5ff] align-middle shadow-[0_0_8px_#00f5ff]" />
+            {b.label}
+          </div>
+        </motion.div>
+      ))}
     </motion.div>
   );
 }
 
 function Hero() {
   return (
-    <section id="home" className="relative isolate min-h-screen overflow-hidden pt-32">
+    <section id="home" className="relative isolate min-h-screen overflow-hidden pt-28 md:pt-32">
       <Particles count={50} />
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 pb-24 md:grid-cols-2">
-        <div>
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 pb-24 md:grid-cols-2 md:gap-16 lg:gap-20">
+        <div className="order-2 md:order-1">
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
             className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-white/70"
@@ -301,20 +298,20 @@ function Hero() {
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.1 }}
-            className="mt-6 font-display text-5xl font-semibold tracking-tight md:text-7xl"
+            className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.25rem]"
           >
-            Hi, I'm <br />
+            <span className="block text-white/80">Hi, I'm</span>
             <span className="gradient-text">SRISANJAY M</span>
           </motion.h1>
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.35 }}
-            className="mt-5 font-display text-2xl text-white/80 md:text-3xl"
+            className="mt-6 font-display text-2xl text-white/80 md:text-3xl"
           >
-            I build as a <TypingRole />
+            <span className="text-white/70">I'm a </span><TypingRole />
           </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-6 max-w-xl text-white/60"
+            className="mt-6 max-w-xl text-base leading-relaxed text-white/60 md:text-lg"
           >
             Computer Science & Business Systems student crafting scalable full-stack,
             mobile, and AI-powered products. Obsessed with elegant UX, clean code,
@@ -325,8 +322,8 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            <MagneticButton href="#projects"><Rocket className="h-4 w-4" /> Explore My Work</MagneticButton>
-            <MagneticButton href="#" download variant="outline"><Download className="h-4 w-4" /> Download Resume</MagneticButton>
+            <MagneticButton href="#projects"><Rocket className="h-4 w-4" /> Explore My Projects</MagneticButton>
+            <MagneticButton href="/resume.pdf" download variant="outline"><Download className="h-4 w-4" /> Download Resume</MagneticButton>
             <MagneticButton href="#contact" variant="ghost">Contact Me <ArrowUpRight className="h-4 w-4" /></MagneticButton>
           </motion.div>
 
@@ -353,7 +350,9 @@ function Hero() {
           </div>
         </div>
 
-        <CodeBlock3D />
+        <div className="order-1 md:order-2">
+          <ProfileShowcase />
+        </div>
       </div>
     </section>
   );
