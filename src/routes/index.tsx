@@ -97,7 +97,7 @@ function ScrollProgress() {
 /* ---------------- Building blocks ---------------- */
 
 function MagneticButton({ children, href, variant = "primary", download }: {
-  children: React.ReactNode; href: string; variant?: "primary" | "ghost" | "outline"; download?: boolean;
+  children: React.ReactNode; href: string; variant?: "primary" | "ghost" | "outline"; download?: boolean | string;
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const x = useMotionValue(0);
