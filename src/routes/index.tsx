@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import profilePhotoAsset from "@/assets/profile-photo.jpeg.asset.json";
 const profilePhoto = profilePhotoAsset.url;
+import resumeAsset from "@/assets/Srisanjay_M_resume.pdf.asset.json";
+const resumeUrl = resumeAsset.url;
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -325,7 +327,7 @@ function Hero() {
             className="mt-8 flex flex-wrap gap-3"
           >
             <MagneticButton href="#projects"><Rocket className="h-4 w-4" /> Explore My Projects</MagneticButton>
-            <MagneticButton href="/resume.pdf" download variant="outline"><Download className="h-4 w-4" /> Download Resume</MagneticButton>
+            <MagneticButton href={resumeUrl} download="Srisanjay_M_resume.pdf" variant="outline"><Download className="h-4 w-4" /> Download Resume</MagneticButton>
             <MagneticButton href="#contact" variant="ghost">Contact Me <ArrowUpRight className="h-4 w-4" /></MagneticButton>
           </motion.div>
 
