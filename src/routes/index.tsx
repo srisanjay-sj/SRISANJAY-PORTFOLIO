@@ -4,7 +4,8 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform, AnimatePres
 import {
   Github, Linkedin, Mail, MapPin, Phone, Download, ExternalLink, ArrowUpRight,
   Code2, Cpu, Database, Smartphone, Brain, Wrench, Sparkles, ArrowUp,
-  Rocket, GraduationCap, Award, Briefcase, ChevronRight,
+  Rocket, GraduationCap, Award, Briefcase, ChevronRight, ChevronDown,
+  Star, Target, Lightbulb, BookOpen, Play,
 } from "lucide-react";
 import profilePhoto from "@/assets/profile.jpg";
 
@@ -449,132 +450,409 @@ function Skills() {
 
 /* ---- Projects ---- */
 
-function LaptopMock() {
-  return (
-    <div className="relative mx-auto w-full max-w-sm">
-      <div className="rounded-t-2xl border border-white/10 bg-gradient-to-b from-[#0e1224] to-[#0a0d1c] p-2 shadow-2xl">
-        <div className="rounded-t-xl bg-black p-2">
-          <div className="flex gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-white/30"/><span className="h-1.5 w-1.5 rounded-full bg-white/30"/><span className="h-1.5 w-1.5 rounded-full bg-white/30"/></div>
-          <div className="mt-2 h-40 overflow-hidden rounded-md bg-gradient-to-br from-[#3b82f6]/40 via-[#7c3aed]/40 to-[#00f5ff]/30 p-3">
-            <div className="font-display text-xs text-white/80">ATS Score</div>
-            <div className="mt-1 font-display text-3xl text-white">88<span className="text-sm text-white/60">/100</span></div>
-            <div className="mt-3 h-1.5 rounded-full bg-white/10"><div className="h-full w-[88%] rounded-full bg-white/80" /></div>
-            <div className="mt-3 grid grid-cols-3 gap-1">
-              {["React","Node","Mongo","Gemini","JWT","REST"].map(t=>(
-                <span key={t} className="rounded bg-white/10 px-1 text-center text-[9px] text-white/80">{t}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="mx-auto h-2 w-[110%] -translate-x-[5%] rounded-b-2xl bg-gradient-to-b from-[#0a0d1c] to-[#050813]" />
-    </div>
-  );
-}
+type ProjectShot = { label: string; palette: [string, string, string]; kind: "web" | "mobile" | "ai" };
+type Project = {
+  title: string;
+  tagline: string;
+  desc: string;
+  tech: { name: string; slug: string; color?: string }[];
+  deploy: string[];
+  features: string[];
+  challenges: string[];
+  learned: string[];
+  gallery: ProjectShot[];
+  device: "laptop" | "phone" | "ai";
+  links: { demo?: string; github?: string; caseStudy?: string };
+};
 
-function PhoneMock() {
-  return (
-    <div className="relative mx-auto h-64 w-36">
-      <div className="absolute inset-0 rounded-[2rem] border border-white/10 bg-black p-2 shadow-2xl">
-        <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] bg-gradient-to-b from-[#0a0d1c] via-[#0e1a3d] to-black">
-          <div className="absolute left-1/2 top-1 h-3 w-14 -translate-x-1/2 rounded-full bg-black" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
-              className="h-8 w-8 rounded-full bg-gradient-to-br from-[#00f5ff] to-[#7c3aed] shadow-[0_0_30px_#00f5ff]" />
-          </div>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-display text-xs text-white">RUN · 3210</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function AIVisual() {
-  return (
-    <div className="relative mx-auto flex h-64 w-full items-center justify-center">
-      <svg viewBox="0 0 300 200" className="h-full w-full">
-        <defs>
-          <linearGradient id="g" x1="0" x2="1"><stop stopColor="#00f5ff"/><stop offset="1" stopColor="#7c3aed"/></linearGradient>
-        </defs>
-        <g stroke="url(#g)" strokeWidth="1.2" fill="none" opacity="0.9">
-          <rect x="40" y="40" width="80" height="60" rx="4" />
-          <rect x="150" y="70" width="60" height="40" rx="4" />
-          <rect x="90" y="130" width="70" height="40" rx="4" />
-        </g>
-        {[[80,55],[190,90],[125,150]].map(([x,y],i)=>(
-          <g key={i}>
-            <circle cx={x} cy={y} r="3" fill="#00f5ff"/>
-            <circle cx={x} cy={y} r="10" fill="none" stroke="#00f5ff" opacity="0.4">
-              <animate attributeName="r" from="6" to="18" dur="2s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite"/>
-            </circle>
-          </g>
-        ))}
-      </svg>
-    </div>
-  );
-}
-
-const PROJECTS = [
+const PROJECTS: Project[] = [
   {
     title: "AI Resume ATS Analyzer",
-    desc: "Full-stack ATS analyzer that scores resumes, extracts keywords, and generates AI suggestions with Google Gemini.",
-    tech: ["React", "Node", "Express", "MongoDB", "Gemini AI", "JWT"],
+    tagline: "Full-stack AI resume intelligence",
+    desc: "A full-stack ATS analyzer that scores resumes against job descriptions, extracts keywords, and generates tailored improvement suggestions using Google Gemini.",
+    tech: [
+      { name: "React", slug: "react", color: "61DAFB" },
+      { name: "Node.js", slug: "nodedotjs", color: "5FA04E" },
+      { name: "Express", slug: "express", color: "FFFFFF" },
+      { name: "MongoDB", slug: "mongodb", color: "47A248" },
+      { name: "Gemini", slug: "googlegemini", color: "8E75B2" },
+      { name: "JWT", slug: "jsonwebtokens", color: "FFFFFF" },
+      { name: "TailwindCSS", slug: "tailwindcss", color: "06B6D4" },
+    ],
     deploy: ["Vercel", "Render", "MongoDB Atlas"],
-    mock: <LaptopMock />,
+    features: [
+      "AI-powered resume scoring against any job description",
+      "Keyword extraction with match / miss analytics",
+      "Gemini-generated improvement suggestions",
+      "Secure JWT auth with saved resume history",
+    ],
+    challenges: [
+      "Streaming long Gemini responses without blocking the UI",
+      "Parsing PDF & DOCX resumes reliably on the server",
+      "Rate-limiting AI calls per user without breaking UX",
+    ],
+    learned: [
+      "Designing prompt pipelines that produce structured JSON",
+      "Deploying MERN apps across Vercel + Render with cold-start awareness",
+      "Building resilient file-processing workflows",
+    ],
+    gallery: [
+      { label: "Dashboard", palette: ["#3b82f6", "#7c3aed", "#00f5ff"], kind: "web" },
+      { label: "Score Report", palette: ["#0ea5e9", "#6366f1", "#22d3ee"], kind: "web" },
+      { label: "AI Suggestions", palette: ["#7c3aed", "#ec4899", "#3b82f6"], kind: "web" },
+    ],
+    device: "laptop",
+    links: { demo: "#", github: "#", caseStudy: "#" },
   },
   {
     title: "SpaceEscapeRunner",
-    desc: "React Native mobile game with custom game loop, collision detection, animations and persistent scores.",
-    tech: ["React Native", "Expo", "AsyncStorage", "EAS"],
-    deploy: ["Android APK"],
-    mock: <PhoneMock />,
+    tagline: "React Native arcade game",
+    desc: "A React Native mobile game with a custom render loop, collision detection, spring-based animations, and persistent high scores stored on-device.",
+    tech: [
+      { name: "React Native", slug: "react", color: "61DAFB" },
+      { name: "Expo", slug: "expo", color: "FFFFFF" },
+      { name: "TypeScript", slug: "typescript", color: "3178C6" },
+      { name: "EAS", slug: "expo", color: "FFFFFF" },
+    ],
+    deploy: ["Android APK", "Expo EAS"],
+    features: [
+      "60fps custom game loop with delta-time physics",
+      "Pixel-perfect collision detection & particle effects",
+      "Persistent high scores via AsyncStorage",
+      "Haptic feedback and adaptive difficulty curve",
+    ],
+    challenges: [
+      "Keeping the render loop smooth on low-end Android devices",
+      "Handling gesture input without dropped frames",
+      "Building an EAS pipeline for signed APK releases",
+    ],
+    learned: [
+      "Optimising React Native re-renders using reanimated worklets",
+      "Game-loop architecture inside a component tree",
+      "Publishing signed builds through EAS",
+    ],
+    gallery: [
+      { label: "Main Menu", palette: ["#0f172a", "#1e40af", "#00f5ff"], kind: "mobile" },
+      { label: "In-Game", palette: ["#1e1b4b", "#7c3aed", "#f472b6"], kind: "mobile" },
+      { label: "Game Over", palette: ["#7f1d1d", "#f97316", "#facc15"], kind: "mobile" },
+    ],
+    device: "phone",
+    links: { demo: "#", github: "#" },
   },
   {
-    title: "AI Based Multi Object Detection",
-    desc: "Deep learning system that detects and classifies multiple objects in real time with high accuracy.",
-    tech: ["Deep Learning", "Computer Vision", "Python"],
-    deploy: ["Local Inference"],
-    mock: <AIVisual />,
+    title: "AI Multi-Object Detection",
+    tagline: "Real-time computer vision",
+    desc: "A deep-learning system that detects and classifies multiple objects in real time from images and video streams with high accuracy and low latency.",
+    tech: [
+      { name: "Python", slug: "python", color: "3776AB" },
+      { name: "PyTorch", slug: "pytorch", color: "EE4C2C" },
+      { name: "OpenCV", slug: "opencv", color: "5C3EE8" },
+      { name: "NumPy", slug: "numpy", color: "013243" },
+      { name: "FastAPI", slug: "fastapi", color: "009688" },
+    ],
+    deploy: ["Local Inference", "ONNX Runtime"],
+    features: [
+      "Multi-object detection at real-time frame rates",
+      "Confidence-scored bounding boxes with class labels",
+      "Live webcam & video-file inference modes",
+      "Exportable results as JSON / annotated video",
+    ],
+    challenges: [
+      "Balancing inference speed vs. detection accuracy",
+      "Handling occlusion and overlapping objects",
+      "Streaming inference results without frame drops",
+    ],
+    learned: [
+      "Transfer learning with pre-trained detection backbones",
+      "Quantisation & ONNX export for fast local inference",
+      "Building clean CV pipelines with OpenCV + PyTorch",
+    ],
+    gallery: [
+      { label: "Detection Grid", palette: ["#0f172a", "#00f5ff", "#7c3aed"], kind: "ai" },
+      { label: "Confidence Map", palette: ["#1e293b", "#22d3ee", "#3b82f6"], kind: "ai" },
+      { label: "Live Stream", palette: ["#111827", "#f472b6", "#00f5ff"], kind: "ai" },
+    ],
+    device: "ai",
+    links: { demo: "#", github: "#", caseStudy: "#" },
   },
 ];
+
+function DeviceFrame({ device, shot }: { device: Project["device"]; shot: ProjectShot }) {
+  const bg = `linear-gradient(135deg, ${shot.palette[0]} 0%, ${shot.palette[1]} 55%, ${shot.palette[2]} 100%)`;
+  const inner = (
+    <div className="relative h-full w-full overflow-hidden" style={{ background: bg }}>
+      <div className="absolute inset-0 opacity-30" style={{
+        backgroundImage: "linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px)",
+        backgroundSize: "24px 24px",
+        maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+      }} />
+      {shot.kind === "web" && (
+        <div className="absolute inset-0 flex flex-col p-4">
+          <div className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-white/40"/><span className="h-2 w-2 rounded-full bg-white/40"/><span className="h-2 w-2 rounded-full bg-white/40"/></div>
+          <div className="mt-3 flex-1 rounded-lg bg-white/10 backdrop-blur-sm p-3">
+            <div className="h-2 w-24 rounded bg-white/60" />
+            <div className="mt-2 h-2 w-16 rounded bg-white/30" />
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              <div className="h-14 rounded bg-white/15" />
+              <div className="h-14 rounded bg-white/25" />
+              <div className="h-14 rounded bg-white/15" />
+            </div>
+            <div className="mt-3 h-1.5 rounded bg-white/10"><div className="h-full w-3/4 rounded bg-white" /></div>
+          </div>
+        </div>
+      )}
+      {shot.kind === "mobile" && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4">
+          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 1.8, repeat: Infinity }}
+            className="h-10 w-10 rounded-full bg-white shadow-[0_0_30px_rgba(255,255,255,0.6)]" />
+          <div className="h-1.5 w-24 rounded bg-white/40" />
+          <div className="h-1.5 w-16 rounded bg-white/25" />
+        </div>
+      )}
+      {shot.kind === "ai" && (
+        <div className="absolute inset-0 p-3">
+          <svg viewBox="0 0 200 140" className="h-full w-full">
+            <g stroke="rgba(255,255,255,0.9)" strokeWidth="1" fill="none">
+              <rect x="20" y="20" width="60" height="45" rx="3" />
+              <rect x="110" y="35" width="55" height="40" rx="3" />
+              <rect x="60" y="85" width="70" height="35" rx="3" />
+            </g>
+            {[[50,42],[137,55],[95,102]].map(([x,y],i)=>(
+              <g key={i}>
+                <circle cx={x} cy={y} r="2.5" fill="white"/>
+                <circle cx={x} cy={y} r="8" fill="none" stroke="white" opacity="0.5">
+                  <animate attributeName="r" from="4" to="14" dur="2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+            ))}
+          </svg>
+        </div>
+      )}
+      <div className="absolute bottom-2 left-3 font-mono text-[10px] uppercase tracking-widest text-white/80">{shot.label}</div>
+    </div>
+  );
+
+  if (device === "phone") {
+    return (
+      <div className="relative mx-auto aspect-[9/16] w-full max-w-[220px] rounded-[2rem] border border-white/10 bg-black p-2 shadow-2xl">
+        <div className="absolute left-1/2 top-2 z-10 h-3 w-14 -translate-x-1/2 rounded-full bg-black" />
+        <div className="h-full w-full overflow-hidden rounded-[1.6rem]">{inner}</div>
+      </div>
+    );
+  }
+  // laptop / ai use browser-style frame
+  return (
+    <div className="relative mx-auto aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
+      {inner}
+    </div>
+  );
+}
+
+function ProjectGallery({ project }: { project: Project }) {
+  const [idx, setIdx] = useState(0);
+  const shot = project.gallery[idx];
+  return (
+    <div className="flex flex-col gap-4">
+      <motion.div
+        key={idx}
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="rounded-3xl glass gradient-border p-4 md:p-6"
+      >
+        <DeviceFrame device={project.device} shot={shot} />
+      </motion.div>
+      <div className="flex gap-2 overflow-x-auto pb-1">
+        {project.gallery.map((g, i) => (
+          <button
+            key={g.label}
+            type="button"
+            onClick={() => setIdx(i)}
+            aria-label={`Show ${g.label}`}
+            className={`group relative h-16 w-24 shrink-0 overflow-hidden rounded-xl border transition-all duration-300 ${
+              i === idx ? "border-[#00f5ff] shadow-[0_0_20px_rgba(0,245,255,0.4)]" : "border-white/10 hover:border-white/30"
+            }`}
+            style={{ background: `linear-gradient(135deg, ${g.palette[0]}, ${g.palette[1]}, ${g.palette[2]})` }}
+          >
+            <span className="absolute inset-x-0 bottom-0 truncate bg-black/40 px-1 text-center font-mono text-[9px] uppercase tracking-widest text-white/90">
+              {g.label}
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TechBadge({ tech }: { tech: { name: string; slug: string; color?: string } }) {
+  const [broken, setBroken] = useState(false);
+  const color = tech.color ?? "FFFFFF";
+  return (
+    <span className="group inline-flex items-center gap-1.5 rounded-full glass px-3 py-1.5 text-xs text-white/85 transition-all duration-300 hover:-translate-y-0.5 hover:text-white hover:shadow-[0_0_18px_rgba(59,130,246,0.35)]">
+      {!broken ? (
+        <img
+          src={`https://cdn.simpleicons.org/${tech.slug}/${color}`}
+          alt=""
+          width={14}
+          height={14}
+          loading="lazy"
+          onError={() => setBroken(true)}
+          className="h-3.5 w-3.5"
+        />
+      ) : (
+        <span className="h-1.5 w-1.5 rounded-full bg-[#00f5ff]" />
+      )}
+      {tech.name}
+    </span>
+  );
+}
+
+function Collapsible({ icon: Icon, title, items }: { icon: any; title: string; items: string[] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.02] transition-colors hover:border-white/20">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="flex w-full items-center gap-3 px-4 py-3 text-left"
+      >
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#3b82f6]/30 to-[#7c3aed]/30">
+          <Icon className="h-4 w-4 text-[#00f5ff]" />
+        </span>
+        <span className="flex-1 font-display text-sm text-white">{title}</span>
+        <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.25 }}>
+          <ChevronDown className="h-4 w-4 text-white/60" />
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <ul className="space-y-2 px-4 pb-4 pt-1 text-sm text-white/70">
+              {items.map((it) => (
+                <li key={it} className="flex gap-2">
+                  <ChevronRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#00f5ff]" />
+                  <span>{it}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const flipped = index % 2 === 1;
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.8 }}
+      whileHover={{ y: -6 }}
+      className="group relative overflow-hidden rounded-3xl glass gradient-border p-6 transition-all duration-500 hover:shadow-[0_30px_80px_-20px_rgba(59,130,246,0.35)] md:p-10"
+    >
+      {/* neon hover glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{ background: "radial-gradient(600px circle at 50% 0%, rgba(59,130,246,0.18), transparent 60%)" }}
+      />
+      <div className={`relative grid gap-10 lg:grid-cols-2 ${flipped ? "lg:[&>*:first-child]:order-2" : ""}`}>
+        <ProjectGallery project={project} />
+
+        <div className="flex flex-col">
+          <div className="flex items-center gap-3 text-xs uppercase tracking-[0.28em] text-white/50">
+            <span className="font-mono text-[#00f5ff]">0{index + 1}</span>
+            <span className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
+            <span>{project.tagline}</span>
+          </div>
+          <h3 className="mt-4 font-display text-3xl gradient-text md:text-4xl">{project.title}</h3>
+          <p className="mt-4 text-white/70">{project.desc}</p>
+
+          {/* Tech stack with logos */}
+          <div className="mt-6">
+            <div className="mb-2 text-[11px] uppercase tracking-widest text-white/40">Tech Stack</div>
+            <div className="flex flex-wrap gap-2">
+              {project.tech.map((t) => <TechBadge key={t.name} tech={t} />)}
+            </div>
+          </div>
+
+          {/* Key features */}
+          <div className="mt-6">
+            <div className="mb-3 flex items-center gap-2 text-[11px] uppercase tracking-widest text-white/40">
+              <Star className="h-3 w-3 text-[#00f5ff]" /> Key Features
+            </div>
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {project.features.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-white/75">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-[#00f5ff] to-[#7c3aed] shadow-[0_0_10px_#00f5ff]" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Collapsibles */}
+          <div className="mt-6 space-y-3">
+            <Collapsible icon={Target} title="Challenges Solved" items={project.challenges} />
+            <Collapsible icon={Lightbulb} title="What I Learned" items={project.learned} />
+          </div>
+
+          {/* Deployment tags */}
+          <div className="mt-6 flex flex-wrap gap-2">
+            {project.deploy.map((d) => (
+              <span key={d} className="rounded-full border border-white/10 px-3 py-1 text-[11px] uppercase tracking-widest text-white/50">
+                {d}
+              </span>
+            ))}
+          </div>
+
+          {/* Actions */}
+          <div className="mt-7 flex flex-wrap gap-3">
+            {project.links.demo && (
+              <MagneticButton href={project.links.demo}>
+                <Play className="h-4 w-4" /> Live Demo
+              </MagneticButton>
+            )}
+            {project.links.github && (
+              <MagneticButton href={project.links.github} variant="outline">
+                <Github className="h-4 w-4" /> GitHub Repository
+              </MagneticButton>
+            )}
+            {project.links.caseStudy && (
+              <MagneticButton href={project.links.caseStudy} variant="outline">
+                <BookOpen className="h-4 w-4" /> Case Study
+              </MagneticButton>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
 
 function Projects() {
   return (
     <section id="projects" className="relative py-32">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeader eyebrow="Selected Work" title="Products, not portfolios." sub="A few things I've designed, engineered, and shipped end-to-end." />
+        <SectionHeader
+          eyebrow="Selected Work"
+          title="Products, not portfolios."
+          sub="A few things I've designed, engineered, and shipped end-to-end."
+        />
         <div className="mt-16 space-y-10">
           {PROJECTS.map((p, i) => (
-            <motion.article
-              key={p.title}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8 }}
-              className={`grid items-center gap-10 rounded-3xl glass gradient-border p-8 md:p-12 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}
-            >
-              <div>
-                <div className="text-xs uppercase tracking-[0.25em] text-white/50">0{i + 1} · Case Study</div>
-                <h3 className="mt-3 font-display text-3xl gradient-text md:text-4xl">{p.title}</h3>
-                <p className="mt-4 text-white/60">{p.desc}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {p.tech.map((t) => (
-                    <span key={t} className="rounded-full glass px-3 py-1 text-xs text-white/80">{t}</span>
-                  ))}
-                </div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {p.deploy.map((t) => (
-                    <span key={t} className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">{t}</span>
-                  ))}
-                </div>
-                <div className="mt-7 flex gap-3">
-                  <MagneticButton href="#"><ExternalLink className="h-4 w-4" /> Live Demo</MagneticButton>
-                  <MagneticButton href="#" variant="outline"><Github className="h-4 w-4" /> GitHub</MagneticButton>
-                </div>
-              </div>
-              <div>{p.mock}</div>
-            </motion.article>
+            <ProjectCard key={p.title} project={p} index={i} />
           ))}
         </div>
       </div>
