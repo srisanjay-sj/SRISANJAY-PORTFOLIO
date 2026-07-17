@@ -4,7 +4,8 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform, AnimatePres
 import {
   Github, Linkedin, Mail, MapPin, Phone, Download, ExternalLink, ArrowUpRight,
   Code2, Cpu, Database, Smartphone, Brain, Wrench, Sparkles, ArrowUp,
-  Rocket, GraduationCap, Award, Briefcase, ChevronRight,
+  Rocket, GraduationCap, Award, Briefcase, ChevronRight, ChevronDown,
+  Star, Target, Lightbulb, BookOpen, Play,
 } from "lucide-react";
 import profilePhoto from "@/assets/profile.jpg";
 
