@@ -7,7 +7,8 @@ import {
   Rocket, GraduationCap, Award, Briefcase, ChevronRight, ChevronDown,
   Star, Target, Lightbulb, BookOpen, Play,
 } from "lucide-react";
-import profilePhoto from "@/assets/profile.jpg";
+import profilePhotoAsset from "@/assets/profile-photo.jpeg.asset.json";
+const profilePhoto = profilePhotoAsset.url;
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -228,8 +229,8 @@ function ProfileShowcase() {
         <div className="absolute h-[130%] w-[130%] rounded-full border border-white/[0.06]" />
       </div>
 
-      {/* neon glow halo */}
-      <div aria-hidden className="pointer-events-none absolute -inset-8 -z-10 rounded-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.45),rgba(124,58,237,0.25)_45%,transparent_70%)] blur-2xl" />
+      {/* neon blue rim glow */}
+      <div aria-hidden className="pointer-events-none absolute -inset-10 -z-10 rounded-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.55),rgba(0,245,255,0.25)_45%,transparent_72%)] blur-3xl" />
 
       {/* photo container */}
       <motion.div
@@ -237,16 +238,16 @@ function ProfileShowcase() {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         className="relative aspect-square w-full rounded-[2rem] glass gradient-border p-3 shadow-[0_40px_120px_-30px_rgba(59,130,246,0.7)]"
       >
-        <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] ring-1 ring-white/10">
+        <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] ring-1 ring-[#3B82F6]/40 shadow-[inset_0_0_60px_rgba(59,130,246,0.25)]">
           <img
             src={profilePhoto}
             alt="Portrait of Srisanjay M, software engineer"
-            width={1024}
-            height={1024}
-            className="h-full w-full object-cover"
+            loading="eager"
+            className="h-full w-full object-cover object-top scale-[1.05] [filter:brightness(1.06)_contrast(1.08)_saturate(1.05)]"
+            style={{ objectPosition: "50% 18%" }}
           />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0b1020]/70 via-transparent to-transparent" />
-          <div className="pointer-events-none absolute inset-0 rounded-[1.6rem] ring-1 ring-inset ring-[#00f5ff]/20" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0b1020]/75 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-0 rounded-[1.6rem] ring-1 ring-inset ring-[#00f5ff]/30" />
           {/* status chip */}
           <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-[11px] tracking-widest text-white/80">
             <span className="relative flex h-2 w-2">
