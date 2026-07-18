@@ -472,7 +472,7 @@ type Project = {
   learned: string[];
   gallery: ProjectShot[];
   device: "laptop" | "phone" | "ai";
-  links: { demo?: string; github?: string; caseStudy?: string };
+  links: { demo?: string; github?: string; caseStudy?: string; demoLabel?: string };
 };
 
 const PROJECTS: Project[] = [
@@ -512,7 +512,10 @@ const PROJECTS: Project[] = [
       { label: "AI Suggestions", palette: ["#7c3aed", "#ec4899", "#3b82f6"], kind: "web" },
     ],
     device: "laptop",
-    links: { demo: "#", github: "#", caseStudy: "#" },
+    links: {
+      demo: "https://resume-ats-project.vercel.app",
+      github: "https://github.com/srisanjay-sj/Resume-ATS-Project",
+    },
   },
   {
     title: "SpaceEscapeRunner",
@@ -547,7 +550,11 @@ const PROJECTS: Project[] = [
       { label: "Game Over", palette: ["#7f1d1d", "#f97316", "#facc15"], kind: "mobile" },
     ],
     device: "phone",
-    links: { demo: "#", github: "#" },
+    links: {
+      demo: "https://drive.google.com/file/d/1Wu0hvu4JLb6nwK-YzYy69krCqZnSuNiC/view?usp=sharing",
+      demoLabel: "Download APK",
+      github: "https://github.com/srisanjay-sj/SpaceEscapeRunner",
+    },
   },
   {
     title: "AI Multi-Object Detection",
@@ -583,7 +590,7 @@ const PROJECTS: Project[] = [
       { label: "Live Stream", palette: ["#111827", "#f472b6", "#00f5ff"], kind: "ai" },
     ],
     device: "ai",
-    links: { demo: "#", github: "#", caseStudy: "#" },
+    links: {},
   },
 ];
 
