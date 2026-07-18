@@ -1044,24 +1044,38 @@ function Contact() {
           </div>
           <div className="space-y-4">
             {[
-              { i: Mail, l: "Email", v: "srisanjay@example.com" },
-              { i: Phone, l: "Phone", v: "+91 00000 00000" },
-              { i: Linkedin, l: "LinkedIn", v: "linkedin.com/in/srisanjay" },
-              { i: Github, l: "GitHub", v: "github.com/srisanjay" },
-              { i: MapPin, l: "Location", v: "Tamil Nadu, India" },
-            ].map((c) => (
-              <TiltCard key={c.l}>
-                <div className="flex items-center gap-4">
-                  <div className="rounded-xl bg-gradient-to-br from-[#3b82f6]/30 to-[#7c3aed]/30 p-3">
-                    <c.i className="h-5 w-5 text-[#00f5ff]" />
+              { i: Mail, l: "Email", v: "srisanjayacs@gmail.com", h: "mailto:srisanjayacs@gmail.com" },
+              { i: Linkedin, l: "LinkedIn", v: "linkedin.com/in/srisanjay", h: "https://www.linkedin.com/in/srisanjay" },
+              { i: Github, l: "GitHub", v: "github.com/srisanjay-sj", h: "https://github.com/srisanjay-sj" },
+              { i: MapPin, l: "Location", v: "Tamil Nadu, India", h: undefined as string | undefined },
+            ].map((c) => {
+              const inner = (
+                <TiltCard>
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-xl bg-gradient-to-br from-[#3b82f6]/30 to-[#7c3aed]/30 p-3">
+                      <c.i className="h-5 w-5 text-[#00f5ff]" />
+                    </div>
+                    <div>
+                      <div className="text-xs uppercase tracking-widest text-white/50">{c.l}</div>
+                      <div className="text-white">{c.v}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-widest text-white/50">{c.l}</div>
-                    <div className="text-white">{c.v}</div>
-                  </div>
-                </div>
-              </TiltCard>
-            ))}
+                </TiltCard>
+              );
+              return c.h ? (
+                <a
+                  key={c.l}
+                  href={c.h}
+                  target={c.h.startsWith("http") ? "_blank" : undefined}
+                  rel={c.h.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="block"
+                >
+                  {inner}
+                </a>
+              ) : (
+                <div key={c.l}>{inner}</div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -1122,9 +1136,14 @@ function Footer() {
         <div className="text-xs text-white/40">© {new Date().getFullYear()} Srisanjay M · Crafted with obsession.</div>
         <div className="flex gap-3">
           {[
-            { i: Github, h: "#" }, { i: Linkedin, h: "#" }, { i: Mail, h: "#contact" },
+            { i: Github, h: "https://github.com/srisanjay-sj" },
+            { i: Linkedin, h: "https://www.linkedin.com/in/srisanjay" },
+            { i: Mail, h: "mailto:srisanjayacs@gmail.com" },
           ].map((s, i) => (
-            <motion.a key={i} href={s.h} whileHover={{ y: -3, scale: 1.1 }}
+            <motion.a key={i} href={s.h}
+              target={s.h.startsWith("http") ? "_blank" : undefined}
+              rel={s.h.startsWith("http") ? "noopener noreferrer" : undefined}
+              whileHover={{ y: -3, scale: 1.1 }}
               className="flex h-10 w-10 items-center justify-center rounded-full glass text-white/70 shadow-[0_0_30px_-10px_#3b82f6] hover:text-[#00f5ff]">
               <s.i className="h-4 w-4" />
             </motion.a>
