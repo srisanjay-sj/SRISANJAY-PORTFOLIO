@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import {
-  Github, Linkedin, Mail, MapPin, Phone, Download, ExternalLink, ArrowUpRight,
+  Github, Linkedin, Mail, MapPin, Download, ExternalLink, ArrowUpRight,
   Code2, Cpu, Database, Smartphone, Brain, Wrench, Sparkles, ArrowUp,
   Rocket, GraduationCap, Award, Briefcase, ChevronRight, ChevronDown,
   Star, Target, Lightbulb, BookOpen, Play,
@@ -104,6 +104,7 @@ function MagneticButton({ children, href, variant = "primary", download }: {
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 200, damping: 15 });
   const sy = useSpring(y, { stiffness: 200, damping: 15 });
+  const opensNewTab = /^https?:\/\//i.test(href);
   const styles = {
     primary: "text-white bg-gradient-to-r from-[#3b82f6] via-[#00b5ff] to-[#7c3aed] shadow-[0_10px_40px_-10px_rgba(59,130,246,0.7)]",
     outline: "text-white glass gradient-border",
@@ -114,6 +115,8 @@ function MagneticButton({ children, href, variant = "primary", download }: {
       ref={ref}
       href={href}
       download={download}
+      target={opensNewTab ? "_blank" : undefined}
+      rel={opensNewTab ? "noopener noreferrer" : undefined}
       onClick={(e) => {
         if (href.startsWith("#")) {
           e.preventDefault();
@@ -472,7 +475,7 @@ type Project = {
   learned: string[];
   gallery: ProjectShot[];
   device: "laptop" | "phone" | "ai";
-  links: { demo?: string; github?: string; caseStudy?: string };
+  links: { demo?: string; github?: string; caseStudy?: string; demoLabel?: string };
 };
 
 const PROJECTS: Project[] = [
@@ -512,7 +515,10 @@ const PROJECTS: Project[] = [
       { label: "AI Suggestions", palette: ["#7c3aed", "#ec4899", "#3b82f6"], kind: "web" },
     ],
     device: "laptop",
-    links: { demo: "#", github: "#", caseStudy: "#" },
+    links: {
+      demo: "https://resume-ats-project.vercel.app",
+      github: "https://github.com/srisanjay-sj/Resume-ATS-Project",
+    },
   },
   {
     title: "SpaceEscapeRunner",
@@ -547,7 +553,11 @@ const PROJECTS: Project[] = [
       { label: "Game Over", palette: ["#7f1d1d", "#f97316", "#facc15"], kind: "mobile" },
     ],
     device: "phone",
-    links: { demo: "#", github: "#" },
+    links: {
+      demo: "https://drive.google.com/file/d/1Wu0hvu4JLb6nwK-YzYy69krCqZnSuNiC/view?usp=sharing",
+      demoLabel: "Download APK",
+      github: "https://github.com/srisanjay-sj/SpaceEscapeRunner",
+    },
   },
   {
     title: "AI Multi-Object Detection",
@@ -583,7 +593,7 @@ const PROJECTS: Project[] = [
       { label: "Live Stream", palette: ["#111827", "#f472b6", "#00f5ff"], kind: "ai" },
     ],
     device: "ai",
-    links: { demo: "#", github: "#", caseStudy: "#" },
+    links: {},
   },
 ];
 
@@ -831,7 +841,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <div className="mt-7 flex flex-wrap gap-3">
             {project.links.demo && (
               <MagneticButton href={project.links.demo}>
-                <Play className="h-4 w-4" /> Live Demo
+                {project.links.demoLabel ? (
+                  <><Download className="h-4 w-4" /> {project.links.demoLabel}</>
+                ) : (
+                  <><Play className="h-4 w-4" /> Live Demo</>
+                )}
               </MagneticButton>
             )}
             {project.links.github && (
@@ -1029,24 +1043,38 @@ function Contact() {
           </div>
           <div className="space-y-4">
             {[
-              { i: Mail, l: "Email", v: "srisanjay@example.com" },
-              { i: Phone, l: "Phone", v: "+91 00000 00000" },
-              { i: Linkedin, l: "LinkedIn", v: "linkedin.com/in/srisanjay" },
-              { i: Github, l: "GitHub", v: "github.com/srisanjay" },
-              { i: MapPin, l: "Location", v: "Tamil Nadu, India" },
-            ].map((c) => (
-              <TiltCard key={c.l}>
-                <div className="flex items-center gap-4">
-                  <div className="rounded-xl bg-gradient-to-br from-[#3b82f6]/30 to-[#7c3aed]/30 p-3">
-                    <c.i className="h-5 w-5 text-[#00f5ff]" />
+              { i: Mail, l: "Email", v: "srisanjayacs@gmail.com", h: "mailto:srisanjayacs@gmail.com" },
+              { i: Linkedin, l: "LinkedIn", v: "linkedin.com/in/srisanjay", h: "https://www.linkedin.com/in/srisanjay" },
+              { i: Github, l: "GitHub", v: "github.com/srisanjay-sj", h: "https://github.com/srisanjay-sj" },
+              { i: MapPin, l: "Location", v: "Tamil Nadu, India", h: undefined as string | undefined },
+            ].map((c) => {
+              const inner = (
+                <TiltCard>
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-xl bg-gradient-to-br from-[#3b82f6]/30 to-[#7c3aed]/30 p-3">
+                      <c.i className="h-5 w-5 text-[#00f5ff]" />
+                    </div>
+                    <div>
+                      <div className="text-xs uppercase tracking-widest text-white/50">{c.l}</div>
+                      <div className="text-white">{c.v}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-widest text-white/50">{c.l}</div>
-                    <div className="text-white">{c.v}</div>
-                  </div>
-                </div>
-              </TiltCard>
-            ))}
+                </TiltCard>
+              );
+              return c.h ? (
+                <a
+                  key={c.l}
+                  href={c.h}
+                  target={c.h.startsWith("http") ? "_blank" : undefined}
+                  rel={c.h.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="block"
+                >
+                  {inner}
+                </a>
+              ) : (
+                <div key={c.l}>{inner}</div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -1107,9 +1135,14 @@ function Footer() {
         <div className="text-xs text-white/40">© {new Date().getFullYear()} Srisanjay M · Crafted with obsession.</div>
         <div className="flex gap-3">
           {[
-            { i: Github, h: "#" }, { i: Linkedin, h: "#" }, { i: Mail, h: "#contact" },
+            { i: Github, h: "https://github.com/srisanjay-sj" },
+            { i: Linkedin, h: "https://www.linkedin.com/in/srisanjay" },
+            { i: Mail, h: "mailto:srisanjayacs@gmail.com" },
           ].map((s, i) => (
-            <motion.a key={i} href={s.h} whileHover={{ y: -3, scale: 1.1 }}
+            <motion.a key={i} href={s.h}
+              target={s.h.startsWith("http") ? "_blank" : undefined}
+              rel={s.h.startsWith("http") ? "noopener noreferrer" : undefined}
+              whileHover={{ y: -3, scale: 1.1 }}
               className="flex h-10 w-10 items-center justify-center rounded-full glass text-white/70 shadow-[0_0_30px_-10px_#3b82f6] hover:text-[#00f5ff]">
               <s.i className="h-4 w-4" />
             </motion.a>
