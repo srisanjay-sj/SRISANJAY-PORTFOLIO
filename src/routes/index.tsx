@@ -842,7 +842,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <div className="mt-7 flex flex-wrap gap-3">
             {project.links.demo && (
               <MagneticButton href={project.links.demo}>
-                <Play className="h-4 w-4" /> Live Demo
+                {project.links.demoLabel ? (
+                  <><Download className="h-4 w-4" /> {project.links.demoLabel}</>
+                ) : (
+                  <><Play className="h-4 w-4" /> Live Demo</>
+                )}
               </MagneticButton>
             )}
             {project.links.github && (
