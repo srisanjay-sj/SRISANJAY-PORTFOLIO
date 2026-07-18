@@ -1013,11 +1013,11 @@ function Achievements() {
 /* ---- Contact ---- */
 
 function Contact() {
-  const [form, setForm] = React.useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
-  const [feedback, setFeedback] = React.useState<string>("");
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [feedback, setFeedback] = useState<string>("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const name = form.name.trim();
     const email = form.email.trim();
