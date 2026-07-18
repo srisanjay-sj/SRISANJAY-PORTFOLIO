@@ -1043,7 +1043,7 @@ function Contact() {
           </div>
           <div className="space-y-4">
             {[
-              { i: Mail, l: "Email", v: "srisanjayacs@gmail.com", h: "mailto:srisanjayacs@gmail.com" },
+              { i: Mail, l: "Email", v: "srisanjayacs@gmail.com", h: "https://mail.google.com/mail/?view=cm&fs=1&to=srisanjayacs@gmail.com" },
               { i: Linkedin, l: "LinkedIn", v: "linkedin.com/in/srisanjay", h: "https://www.linkedin.com/in/srisanjay" },
               { i: Github, l: "GitHub", v: "github.com/srisanjay-sj", h: "https://github.com/srisanjay-sj" },
               { i: MapPin, l: "Location", v: "Tamil Nadu, India", h: undefined as string | undefined },
@@ -1137,7 +1137,7 @@ function Footer() {
           {[
             { i: Github, h: "https://github.com/srisanjay-sj" },
             { i: Linkedin, h: "https://www.linkedin.com/in/srisanjay" },
-            { i: Mail, h: "mailto:srisanjayacs@gmail.com" },
+            { i: Mail, h: "https://mail.google.com/mail/?view=cm&fs=1&to=srisanjayacs@gmail.com" },
           ].map((s, i) => (
             <motion.a key={i} href={s.h}
               target={s.h.startsWith("http") ? "_blank" : undefined}
