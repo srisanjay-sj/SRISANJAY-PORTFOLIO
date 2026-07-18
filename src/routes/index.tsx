@@ -1013,32 +1013,82 @@ function Achievements() {
 /* ---- Contact ---- */
 
 function Contact() {
+  const [form, setForm] = React.useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
+  const [feedback, setFeedback] = React.useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+    if (!name || !email || !message) {
+      setStatus("error");
+      setFeedback("Please fill in your name, email, and message.");
+      return;
+    }
+    setStatus("loading");
+    setFeedback("");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: "a5fa6bdc-b47f-4c51-a726-9dbf60385c98",
+          name,
+          email,
+          message,
+          subject: "New portfolio contact from " + name,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        setStatus("success");
+        setFeedback("Message sent! I'll get back to you soon.");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+        setFeedback("Something went wrong, please try again or email me directly.");
+      }
+    } catch {
+      setStatus("error");
+      setFeedback("Something went wrong, please try again or email me directly.");
+    }
+  };
+
   return (
     <section id="contact" className="relative py-32">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader eyebrow="Contact" title="Let's build something great." sub="Have a role, a project, or an idea? My inbox is always open." />
         <div className="mt-16 grid gap-8 md:grid-cols-2">
           <div className="rounded-3xl glass gradient-border p-8">
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
-              {[
-                { l: "Name", t: "text", p: "Your name" },
-                { l: "Email", t: "email", p: "you@company.com" },
-              ].map((f) => (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {([
+                { l: "Name", t: "text", p: "Your name", k: "name" as const },
+                { l: "Email", t: "email", p: "you@company.com", k: "email" as const },
+              ]).map((f) => (
                 <label key={f.l} className="block">
                   <span className="text-xs uppercase tracking-widest text-white/50">{f.l}</span>
                   <input type={f.t} placeholder={f.p}
+                    value={form[f.k]}
+                    onChange={(e) => setForm((s) => ({ ...s, [f.k]: e.target.value }))}
                     className="mt-2 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-white placeholder:text-white/30 outline-none transition focus:border-[#00f5ff]/60 focus:bg-white/[0.06] focus:shadow-[0_0_0_4px_rgba(0,245,255,0.1)]" />
                 </label>
               ))}
               <label className="block">
                 <span className="text-xs uppercase tracking-widest text-white/50">Message</span>
                 <textarea rows={5} placeholder="Tell me about your project..."
+                  value={form.message}
+                  onChange={(e) => setForm((s) => ({ ...s, message: e.target.value }))}
                   className="mt-2 w-full resize-none rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-white placeholder:text-white/30 outline-none transition focus:border-[#00f5ff]/60 focus:bg-white/[0.06] focus:shadow-[0_0_0_4px_rgba(0,245,255,0.1)]" />
               </label>
-              <button type="submit"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#3b82f6] via-[#00b5ff] to-[#7c3aed] px-6 py-3 text-sm font-medium text-white shadow-[0_10px_40px_-10px_rgba(59,130,246,0.7)] transition hover:scale-[1.02]">
-                Send Message <ArrowUpRight className="h-4 w-4" />
+              <button type="submit" disabled={status === "loading"}
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#3b82f6] via-[#00b5ff] to-[#7c3aed] px-6 py-3 text-sm font-medium text-white shadow-[0_10px_40px_-10px_rgba(59,130,246,0.7)] transition hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100">
+                {status === "loading" ? "Sending..." : (<>Send Message <ArrowUpRight className="h-4 w-4" /></>)}
               </button>
+              {feedback && (
+                <p className={`text-sm ${status === "success" ? "text-[#00f5ff]" : "text-red-400"}`}>{feedback}</p>
+              )}
             </form>
           </div>
           <div className="space-y-4">
