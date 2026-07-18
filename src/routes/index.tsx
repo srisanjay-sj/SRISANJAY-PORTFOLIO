@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import {
-  Github, Linkedin, Mail, MapPin, Phone, Download, ExternalLink, ArrowUpRight,
+  Github, Linkedin, Mail, MapPin, Download, ExternalLink, ArrowUpRight,
   Code2, Cpu, Database, Smartphone, Brain, Wrench, Sparkles, ArrowUp,
   Rocket, GraduationCap, Award, Briefcase, ChevronRight, ChevronDown,
   Star, Target, Lightbulb, BookOpen, Play,
