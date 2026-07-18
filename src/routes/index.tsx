@@ -7,10 +7,8 @@ import {
   Rocket, GraduationCap, Award, Briefcase, ChevronRight, ChevronDown,
   Star, Target, Lightbulb, BookOpen, Play,
 } from "lucide-react";
-import profilePhotoAsset from "@/assets/profile-photo.jpeg.asset.json";
-const profilePhoto = profilePhotoAsset.url;
-import resumeAsset from "@/assets/Srisanjay_M_resume.pdf.asset.json";
-const resumeUrl = resumeAsset.url;
+const profilePhoto = "/profile-photo.jpeg";
+const resumeUrl = "/resume.pdf";
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
