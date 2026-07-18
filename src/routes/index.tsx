@@ -104,6 +104,8 @@ function MagneticButton({ children, href, variant = "primary", download }: {
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 200, damping: 15 });
   const sy = useSpring(y, { stiffness: 200, damping: 15 });
+  const isExternal = /^https?:\/\//i.test(href) || href.startsWith("mailto:") || href.startsWith("tel:");
+  const opensNewTab = /^https?:\/\//i.test(href);
   const styles = {
     primary: "text-white bg-gradient-to-r from-[#3b82f6] via-[#00b5ff] to-[#7c3aed] shadow-[0_10px_40px_-10px_rgba(59,130,246,0.7)]",
     outline: "text-white glass gradient-border",
@@ -114,6 +116,8 @@ function MagneticButton({ children, href, variant = "primary", download }: {
       ref={ref}
       href={href}
       download={download}
+      target={opensNewTab ? "_blank" : undefined}
+      rel={opensNewTab ? "noopener noreferrer" : undefined}
       onClick={(e) => {
         if (href.startsWith("#")) {
           e.preventDefault();
