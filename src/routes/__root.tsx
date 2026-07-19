@@ -86,8 +86,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Srisanjay M — Software Engineer & Full Stack Developer" },
       { name: "twitter:description", content: "Portfolio of Srisanjay M — Software Engineer, Full Stack, React Native, and AI developer. Explore projects, skills, and experience." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6a5a5f8a-dc3c-4fde-88bb-bc9a78776411/id-preview-a63da5b7--6bcb5ed5-110d-4982-adab-7dede8000df6.lovable.app-1784218725207.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6a5a5f8a-dc3c-4fde-88bb-bc9a78776411/id-preview-a63da5b7--6bcb5ed5-110d-4982-adab-7dede8000df6.lovable.app-1784218725207.png" },
+      { property: "og:image", content: "https://srisanjay-portfolio.vercel.app/projects/ats-3.png" },
+      { property: "og:url", content: "https://srisanjay-portfolio.vercel.app/" },
+      { name: "twitter:image", content: "https://srisanjay-portfolio.vercel.app/projects/ats-3.png" },
+      { name: "robots", content: "index, follow" },
     ],
     links: [
       {
@@ -95,6 +97,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "canonical", href: "https://srisanjay-portfolio.vercel.app/" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" },
