@@ -43,9 +43,8 @@ function CursorGlow() {
 function AuroraBackdrop() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      <div className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-[#3b82f6]/25 blur-[120px] animate-aurora" />
-      <div className="absolute top-1/3 -right-32 h-[520px] w-[520px] rounded-full bg-[#7c3aed]/25 blur-[120px] animate-aurora" style={{ animationDelay: "-6s" }} />
-      <div className="absolute bottom-0 left-1/3 h-[440px] w-[440px] rounded-full bg-[#00f5ff]/20 blur-[120px] animate-aurora" style={{ animationDelay: "-10s" }} />
+      <div className="absolute -top-40 -left-40 h-[520px] w-[520px] rounded-full bg-[#3b82f6]/25 blur-[80px]" />
+      <div className="absolute top-1/3 -right-32 h-[520px] w-[520px] rounded-full bg-[#7c3aed]/25 blur-[80px]" />
       <div className="absolute inset-0 opacity-[0.035]" style={{
         backgroundImage: "linear-gradient(rgba(255,255,255,.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.9) 1px, transparent 1px)",
         backgroundSize: "56px 56px",
@@ -221,10 +220,8 @@ function ProfileShowcase() {
   const badges = [
     { label: "React",     cls: "top-[4%] left-[-6%]",     delay: 0 },
     { label: "Node.js",   cls: "top-[18%] right-[-10%]",  delay: 0.6 },
-    { label: "Python",    cls: "top-[52%] left-[-14%]",   delay: 1.2 },
-    { label: "MongoDB",   cls: "bottom-[18%] right-[-12%]", delay: 1.8 },
-    { label: "Gemini AI", cls: "bottom-[-4%] left-[10%]", delay: 2.4 },
-    { label: "GitHub",    cls: "top-[36%] right-[-4%]",   delay: 3.0 },
+    { label: "Python",    cls: "bottom-[18%] right-[-12%]", delay: 1.2 },
+    { label: "GitHub",    cls: "bottom-[-4%] left-[10%]", delay: 1.8 },
   ];
   return (
     <motion.div
@@ -295,7 +292,7 @@ function ProfileShowcase() {
 function Hero() {
   return (
     <section id="home" className="relative isolate min-h-screen overflow-hidden pt-28 md:pt-32">
-      <Particles count={50} />
+      <Particles count={15} />
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 pb-24 md:grid-cols-2 md:gap-16 lg:gap-20">
         <div className="order-2 md:order-1">
           <motion.div
@@ -1292,7 +1289,6 @@ function Portfolio() {
       <Loader done={ready} />
       <ScrollProgress />
       <AuroraBackdrop />
-      <CursorGlow />
       <Nav />
 
       <main className="relative z-10">
