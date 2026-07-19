@@ -461,7 +461,7 @@ function Skills() {
 
 /* ---- Projects ---- */
 
-type ProjectShot = { label: string; palette: [string, string, string]; kind: "web" | "mobile" | "ai" };
+type ProjectShot = { label: string; palette: [string, string, string]; kind: "web" | "mobile" | "ai"; image?: string };
 type Project = {
   title: string;
   tagline: string;
@@ -508,9 +508,9 @@ const PROJECTS: Project[] = [
       "Building resilient file-processing workflows",
     ],
     gallery: [
-      { label: "Dashboard", palette: ["#3b82f6", "#7c3aed", "#00f5ff"], kind: "web" },
-      { label: "Score Report", palette: ["#0ea5e9", "#6366f1", "#22d3ee"], kind: "web" },
-      { label: "AI Suggestions", palette: ["#7c3aed", "#ec4899", "#3b82f6"], kind: "web" },
+      { label: "Landing Page", palette: ["#3b82f6", "#7c3aed", "#00f5ff"], kind: "web", image: "/projects/ats-1.png" },
+      { label: "Upload & Analyze", palette: ["#0ea5e9", "#6366f1", "#22d3ee"], kind: "web", image: "/projects/ats-2.png" },
+      { label: "Score Report", palette: ["#7c3aed", "#ec4899", "#3b82f6"], kind: "web", image: "/projects/ats-3.png" },
     ],
     device: "laptop",
     links: {
@@ -546,9 +546,8 @@ const PROJECTS: Project[] = [
       "Publishing signed builds through EAS",
     ],
     gallery: [
-      { label: "Main Menu", palette: ["#0f172a", "#1e40af", "#00f5ff"], kind: "mobile" },
-      { label: "In-Game", palette: ["#1e1b4b", "#7c3aed", "#f472b6"], kind: "mobile" },
-      { label: "Game Over", palette: ["#7f1d1d", "#f97316", "#facc15"], kind: "mobile" },
+      { label: "Gameplay", palette: ["#1e1b4b", "#7c3aed", "#f472b6"], kind: "mobile", image: "/projects/space-1.png" },
+      { label: "Game Over", palette: ["#7f1d1d", "#f97316", "#facc15"], kind: "mobile", image: "/projects/space-2.png" },
     ],
     device: "phone",
     links: {
@@ -597,6 +596,21 @@ const PROJECTS: Project[] = [
 
 function DeviceFrame({ device, shot }: { device: Project["device"]; shot: ProjectShot }) {
   const bg = `linear-gradient(135deg, ${shot.palette[0]} 0%, ${shot.palette[1]} 55%, ${shot.palette[2]} 100%)`;
+
+  if (shot.image) {
+    return (
+      <div className="relative h-full w-full overflow-hidden" style={{ background: bg }}>
+        <img
+          src={shot.image}
+          alt={shot.label}
+          loading="lazy"
+          className="h-full w-full object-cover object-top"
+        />
+        <div className="absolute bottom-2 left-3 rounded bg-black/50 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-white/90">{shot.label}</div>
+      </div>
+    );
+  }
+
   const inner = (
     <div className="relative h-full w-full overflow-hidden" style={{ background: bg }}>
       <div className="absolute inset-0 opacity-30" style={{
@@ -931,31 +945,62 @@ function Timeline({ items, id, eyebrow, title }: {
 
 function Certifications() {
   const certs = [
-    { t: "DBMS", d: "Database Management" },
-    { t: "SQL", d: "Structured Query Language" },
-    { t: "Python", d: "Programming Fundamentals" },
-    { t: "Responsive Web Design", d: "Modern layouts & UX" },
+    { t: "Build Your Own Static Website", d: "HTML · CSS · Bootstrap", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-1.jpg" },
+    { t: "Build Your Own Responsive Website", d: "Bootstrap · Flexbox", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-2.jpg" },
+    { t: "Introduction to Databases", d: "SQL Fundamentals", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-3.jpg" },
+    { t: "XPM 4.0 Fundamentals", d: "Goal Setting · Integrity", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-4.jpg" },
+    { t: "Database Management System", d: "Elite · IIT Kharagpur (NPTEL)", issuer: "NPTEL / Swayam", img: "/certificates/cert-5.jpg" },
   ];
+  const [active, setActive] = useState<null | number>(null);
   return (
     <section id="certs" className="relative py-32">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader eyebrow="Certifications" title="Always learning." />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {certs.map((c, i) => (
             <motion.div key={c.t}
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               transition={{ delay: i * 0.06, duration: 0.6 }}>
-              <TiltCard className="text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#3b82f6]/30 to-[#7c3aed]/30">
-                  <Award className="h-6 w-6 text-[#00f5ff]" />
-                </div>
-                <h3 className="mt-4 font-display text-lg text-white">{c.t}</h3>
-                <p className="mt-1 text-xs text-white/50">{c.d}</p>
+              <TiltCard className="overflow-hidden !p-0">
+                <button
+                  type="button"
+                  onClick={() => setActive(i)}
+                  className="block w-full text-left"
+                >
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-black/20">
+                    <img src={c.img} alt={c.t} loading="lazy" className="h-full w-full object-cover transition duration-500 hover:scale-105" />
+                  </div>
+                  <div className="p-5">
+                    <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-white/40">
+                      <Award className="h-3.5 w-3.5 text-[#00f5ff]" /> {c.issuer}
+                    </div>
+                    <h3 className="mt-2 font-display text-base text-white">{c.t}</h3>
+                    <p className="mt-1 text-xs text-white/50">{c.d}</p>
+                  </div>
+                </button>
               </TiltCard>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {active !== null && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={() => setActive(null)}
+            className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-6 backdrop-blur-sm"
+          >
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+              src={certs[active].img}
+              alt={certs[active].t}
+              onClick={(e) => e.stopPropagation()}
+              className="max-h-[85vh] max-w-full rounded-2xl border border-white/10 shadow-2xl"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
