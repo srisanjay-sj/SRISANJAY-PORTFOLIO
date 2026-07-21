@@ -86,9 +86,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Srisanjay M — Software Engineer & Full Stack Developer" },
       { name: "twitter:description", content: "Portfolio of Srisanjay M — Software Engineer, Full Stack, React Native, and AI developer. Explore projects, skills, and experience." },
-      { property: "og:image", content: "https://srisanjay-portfolio.vercel.app/projects/ats-3.png" },
+      { property: "og:image", content: "https://srisanjay-portfolio.vercel.app/home-preview.png" },
       { property: "og:url", content: "https://srisanjay-portfolio.vercel.app/" },
-      { name: "twitter:image", content: "https://srisanjay-portfolio.vercel.app/projects/ats-3.png" },
+      { name: "twitter:image", content: "https://srisanjay-portfolio.vercel.app/home-preview.png" },
       { name: "robots", content: "index, follow" },
     ],
     links: [
