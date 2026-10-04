@@ -938,47 +938,80 @@ function Timeline({ items, id, eyebrow, title }: {
   );
 }
 
-/* ---- Certifications & Achievements ---- */
+/* ---- Certifications, Achievements & Workshops ---- */
+
+type CertCategory = "Certifications" | "Achievements" | "Workshops";
+
+const CERTS: { t: string; d: string; issuer: string; img: string; cat: CertCategory }[] = [
+  // Certifications
+  { t: "Build Your Own Static Website", d: "HTML · CSS · Bootstrap", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-1.jpg", cat: "Certifications" },
+  { t: "Build Your Own Responsive Website", d: "Bootstrap · Flexbox", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-2.jpg", cat: "Certifications" },
+  { t: "Introduction to Databases", d: "SQL Fundamentals", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-3.jpg", cat: "Certifications" },
+  { t: "XPM 4.0 Fundamentals", d: "Goal Setting · Integrity", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-4.jpg", cat: "Certifications" },
+  { t: "Database Management System", d: "Elite · IIT Kharagpur (NPTEL)", issuer: "NPTEL / Swayam", img: "/certificates/cert-5.jpg", cat: "Certifications" },
+  { t: "Project Completion: Build Your Own AI Automation Platform", d: "Workshop · AI Agents · Automation · Sep 2026", issuer: "NxtWave", img: "/certificates/cert-6.jpg", cat: "Certifications" },
+  { t: "Project Completion: MCP Mega Workshop", d: "Cursor IDE · Pipedream · MCP Servers · Aug 2025", issuer: "NxtWave", img: "/certificates/cert-7.jpg", cat: "Certifications" },
+  // Achievements
+  { t: "#MadeInIndia Hackathon 2026", d: "Bronze Innovator · Phase 1 Online Evaluation Round", issuer: "ZeAI Soft", img: "/certificates/cert-8.jpg", cat: "Achievements" },
+  // Workshops
+  { t: "Generative AI Mastery Workshop", d: "GenAI Buildathon · Aug 2025", issuer: "NxtWave", img: "/certificates/cert-9.jpg", cat: "Workshops" },
+  { t: "Masterclass: LLMs & Agentic AI 101", d: "LLMs · Agentic AI · Sep 2025", issuer: "NxtWave", img: "/certificates/cert-10.jpg", cat: "Workshops" },
+];
+
+const CERT_GROUPS: { name: CertCategory; sub: string }[] = [
+  { name: "Certifications", sub: "Courses and project completions" },
+  { name: "Achievements", sub: "Hackathons and competitions" },
+  { name: "Workshops", sub: "Hands-on AI workshops and masterclasses" },
+];
 
 function Certifications() {
-  const certs = [
-    { t: "Build Your Own Static Website", d: "HTML · CSS · Bootstrap", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-1.jpg" },
-    { t: "Build Your Own Responsive Website", d: "Bootstrap · Flexbox", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-2.jpg" },
-    { t: "Introduction to Databases", d: "SQL Fundamentals", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-3.jpg" },
-    { t: "XPM 4.0 Fundamentals", d: "Goal Setting · Integrity", issuer: "CCBP 4.0 Academy", img: "/certificates/cert-4.jpg" },
-    { t: "Database Management System", d: "Elite · IIT Kharagpur (NPTEL)", issuer: "NPTEL / Swayam", img: "/certificates/cert-5.jpg" },
-  ];
   const [active, setActive] = useState<null | number>(null);
   return (
     <section id="certs" className="relative py-32">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader eyebrow="Certifications" title="Always learning." />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {certs.map((c, i) => (
-            <motion.div key={c.t}
-              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ delay: i * 0.06, duration: 0.6 }}>
-              <TiltCard className="overflow-hidden !p-0">
-                <button
-                  type="button"
-                  onClick={() => setActive(i)}
-                  className="block w-full text-left"
-                >
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-black/20">
-                    <img src={c.img} alt={c.t} loading="lazy" className="h-full w-full object-cover transition duration-500 hover:scale-105" />
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-white/40">
-                      <Award className="h-3.5 w-3.5 text-[#00f5ff]" /> {c.issuer}
-                    </div>
-                    <h3 className="mt-2 font-display text-base text-white">{c.t}</h3>
-                    <p className="mt-1 text-xs text-white/50">{c.d}</p>
-                  </div>
-                </button>
-              </TiltCard>
-            </motion.div>
-          ))}
-        </div>
+
+        {CERT_GROUPS.map((g, gi) => {
+          const list = CERTS
+            .map((c, idx) => ({ c, idx }))
+            .filter((x) => x.c.cat === g.name);
+          if (list.length === 0) return null;
+          return (
+            <div key={g.name} className={gi === 0 ? "mt-14" : "mt-20"}>
+              <div className="mb-6 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 className="font-display text-xl text-white md:text-2xl">{g.name}</h3>
+                <span className="text-xs uppercase tracking-widest text-white/40">{g.sub}</span>
+                <span className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
+              </div>
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {list.map(({ c, idx }, i) => (
+                  <motion.div key={c.t}
+                    initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                    transition={{ delay: i * 0.06, duration: 0.6 }}>
+                    <TiltCard className="overflow-hidden !p-0 h-full">
+                      <button
+                        type="button"
+                        onClick={() => setActive(idx)}
+                        className="flex h-full w-full flex-col text-left"
+                      >
+                        <div className="aspect-[4/3] w-full overflow-hidden bg-black/20">
+                          <img src={c.img} alt={c.t} loading="lazy" className="h-full w-full object-cover transition duration-500 hover:scale-105" />
+                        </div>
+                        <div className="p-5">
+                          <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-white/40">
+                            <Award className="h-3.5 w-3.5 text-[#00f5ff]" /> {c.issuer}
+                          </div>
+                          <h3 className="mt-2 line-clamp-2 font-display text-base text-white">{c.t}</h3>
+                          <p className="mt-1 line-clamp-2 text-xs text-white/50">{c.d}</p>
+                        </div>
+                      </button>
+                    </TiltCard>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <AnimatePresence>
@@ -990,8 +1023,8 @@ function Certifications() {
           >
             <motion.img
               initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
-              src={certs[active].img}
-              alt={certs[active].t}
+              src={CERTS[active].img}
+              alt={CERTS[active].t}
               onClick={(e) => e.stopPropagation()}
               className="max-h-[85vh] max-w-full rounded-2xl border border-white/10 shadow-2xl"
             />
